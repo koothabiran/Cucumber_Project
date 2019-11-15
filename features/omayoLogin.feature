@@ -1,5 +1,8 @@
 Feature: Login to the omayo application
 
+
+
+@omayo @All
 Scenario Outline: User should only be able to login with valid credential
 
 Given I navigate to omayo website

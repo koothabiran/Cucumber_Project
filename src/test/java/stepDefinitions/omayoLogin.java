@@ -1,4 +1,4 @@
-package cbPack;
+package stepDefinitions;
 
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -15,14 +17,24 @@ public class omayoLogin {
 	
 	WebDriver driver;
 	
+	@Before("@omayo")
+	public void setup() throws InterruptedException {
+		
+		System.out.println("Inside Before Hooks");
+		
+		System.setProperty("webdriver.chrome.driver", "drivers//chromedriver.exe");
+		driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		Thread.sleep(1000);
+		
+	}
+	
+	
 	
 	@Given("^I navigate to omayo website$")
 	public void i_navigate_to_omayo_website() throws Throwable {
 		
-		System.setProperty("webdriver.chrome.driver", "drivers//chromedriver.exe");
 		
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
 		driver.get("http://omayo.blogspot.com/");
 		
 	   
@@ -56,8 +68,6 @@ public class omayoLogin {
 		
 		
 		
-		
-		
 		try {
 		Alert alert =	driver.switchTo().alert();
 		
@@ -86,13 +96,17 @@ public class omayoLogin {
 			
 			Assert.fail("omayo Login test has failed");
 			
-		}
-	
-		
-		driver.quit();
-		
+		}	
 	    
 	}
 	
+	
+	@After("@omayo")
+	public void tearDown() {
+		
+		System.out.println("Inside After Hooks");
+		
+		driver.quit();
+	}
 	
 }
